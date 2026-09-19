@@ -1,0 +1,407 @@
+e Standard Initializations --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #ebe6e3; /* Deepest Midnight Base */
+    color: #f8fafc; /* Clean Alabaster White Text */
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* --- Palace Entrance Gate Overlay (3D Midnight Variant) --- */
+.gate-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+    background: radial-gradient(circle, #d8c0b2 100%, #F9F6C4 0%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1500px;
+    cursor: pointer;
+    transition: opacity 1.2s ease-in-out;
+}
+
+.palace-arch {
+    position: relative;
+    width: 90%;
+    max-width: 650px;
+    height: 85vh;
+    border: 10px double #bead9d; /* Bright Metallic Gold */
+    border-bottom: none;
+    border-radius: 350px 350px 0 0; /* Mughal Arch Dome Cut */
+    box-shadow: 0 30px 80px #a88f7d, 0 0 40px rgba(255, 215, 0, 0.25);
+    display: flex;
+    overflow: hidden;
+    background-color: #d7cdbf;
+}
+
+/* Individual Door Panels */
+.gate-door {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(135deg, #9da089 50%);
+    box-shadow: inset 0 0 40px #b7bb88;
+    transition: transform 2.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+}
+
+.left-door {
+    transform-origin: left center;
+    border-right: 2px solid #eddfc4;
+    border-radius: 350px 0 0 0;
+}
+
+.right-door {
+    transform-origin: right center;
+    border-left: 2px solid #eddfc4;
+    border-radius: 0 350px 0 0;
+}
+
+/* Intricate Mandala Patterns inside Door Panels */
+.mandala-filigree {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    width: 80%;
+    height: 70%;
+    border: 1px dashed rgba(255, 215, 0, 0.25);
+    background: radial-gradient(circle at center, transparent 30%, rgba(255,215,0,0.02) 70%),
+                repeating-linear-gradient(0deg, rgba(255,215,0,0.01) 0px, rgba(255,215,0,0.01) 1px, transparent 1px, transparent 8px);
+}
+
+/* Heavy Solid Brass Door Knockers detailing */
+.brass-knocker {
+    position: absolute;
+    top: 55%;
+    width: 42px;
+    height: 42px;
+    border: 4px solid #5c6319;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffe875 0%, #b39200 100%);
+    box-shadow: 0 6px 15px #b7bb88;
+}
+.knocker-left { right: 15px; }
+.knocker-right { left: 15px; }
+
+/* Central Overlapping Gate Typography Hub */
+.gate-text-center {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    text-align: center;
+    color: #ffffff;
+    padding: 30px;
+}
+
+.royal-emblem {
+    width: 85px;
+    height: 85px;
+    background: radial-gradient(circle, #fff3a8 50%, #ffd700 50%);
+    border: 3px double #0f172a;
+    border-radius: 50%;
+    color: #0d1321;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 25px rgba(255,215,0,0.3);
+}
+
+.gate-text-center h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: #efdfe1;
+    letter-spacing: 3px;
+}
+
+.gate-text-center h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2.8rem;
+    margin: 15px 0;
+    color: #ffffff;
+    text-shadow: 0px 4px 12px rgba(0,0,0,0.9);
+}
+
+.instruction-tag {
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #bbb593;
+    margin-top: 35px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Door State Triggers when clicked via runtime handle */
+.gate-open .left-door { transform: rotateY(-112deg); }
+.gate-open .right-door { transform: rotateY(112deg); }
+.gate-open .gate-text-center { opacity: 0; transform: scale(0.9); transition: opacity 0.8s ease; }
+.gate-fade-out { opacity: 0; pointer-events: none; }
+
+/* --- Main Layout State Containments --- */
+.main-content-hidden {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.8s ease 0.4s, transform 1.8s ease 0.4s;
+}
+
+.main-content-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Realistic Glowing Hanging Lanterns Accent overlay --- */
+.lantern-wrapper {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 300px;
+    pointer-events: none;
+    z-index: 15;
+}
+
+.lantern {
+    position: absolute;
+    width: 20px;
+    height: 45px;
+    background: linear-gradient(to bottom, #ffd700, #b39200);
+    border-radius: 4px;
+    box-shadow: 0 0 15px rgba(255,215,0,0.6);
+}
+
+.lantern::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: 9px;
+    width: 2px;
+    height: 40px;
+    background-color: rgba(255,215,0,0.4);
+}
+
+.glow {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #fff7d6 0%, transparent 70%);
+    animation: flicker 1.5s infinite alternate ease-in-out;
+}
+
+.line-1 { left: 12%; height: 55px; animation: sway 4s infinite alternate ease-in-out; }
+.line-2 { right: 15%; height: 40px; animation: sway 5s infinite alternate ease-in-out 0.5s; }
+.line-3 { left: 50%; height: 60px; animation: sway 4.5s infinite alternate ease-in-out 1s; }
+
+@keyframes sway {
+    0% { transform: rotate(-3deg); transform-origin: top center; }
+    100% { transform: rotate(3deg); transform-origin: top center; }
+}
+
+@keyframes flicker {
+    0% { opacity: 0.7; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 25px #bead9d; }
+}
+
+/* --- Hero Frame Banner Setup --- */
+.hero-banner {
+    height: 100vh;
+    background: linear-gradient(#8e7e73), 
+                url('https://unsplash.com') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #ffffff;
+    border-bottom: 6px double #d3cfb9;
+}
+
+.bismillah-calligraphy {
+    font-size: 2.5rem;
+    color: #ffe680;
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px rgba(255,230,128,0.4);
+}
+
+.main-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 4.8rem;
+    color: #ffffff;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.6), 2px 4px 15px #6b7556;
+    margin: 15px 0;
+}
+
+.greeting-sub {
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 7px;
+    color: #ffd700;
+}
+
+.main-date {
+    font-size: 1.9rem;
+    letter-spacing: 4px;
+    font-weight: 300;
+    color: #f8fafc;
+}
+
+.gold-mandala-divider {
+    font-size: 1.3rem;
+    color: #ffd700;
+    margin-top: 25px;
+    text-shadow: 0 0 10px rgba(255,215,0,0.5);
+}
+
+/* --- Luxury Structural Framework Section --- */
+section {
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.luxury-frame {
+    background: #A88F7D; /* Dark Rich Navy translucent background */
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    outline: 5px double rgba(255, 215, 0, 0.15);
+    outline-offset: -12px;
+    padding: 55px 35px;
+    border-radius: 8px;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.luxury-frame h2 {
+    font-family: 'Playfair Display', serif;
+    color: #ffd700;
+    font-size: 2rem;
+    margin-bottom: 25px;
+}
+
+.arabic-text {
+    font-size: 2.3rem;
+    margin-bottom: 25px;
+    color: #ffffff;
+    font-weight: 600;
+    line-height: 1.7;
+    letter-spacing: 1px;
+}
+
+.english-translation {
+    font-size: 1.1rem;
+    color: #cbd5e1; /* Soft Alabaster-tint slate */
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+/* --- High-Contrast Starry Countdown --- */
+.countdown-section {
+    background: linear-gradient(#003f66, #003f66), url('https://transparenttextures.com');
+    color: #ffffff;
+    border-top: 1px solid rgba(255,215,0,0.1);
+    border-bottom: 1px solid rgba(255,215,0,0.1);
+}
+
+.countdown-section h2 {
+    font-family: 'Playfair Display', serif;
+    color: #ffd700;
+    font-size: 2.2rem;
+    margin-bottom: 35px;
+}
+
+.countdown-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.clock-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    padding: 25px;
+    border-radius: 8px;
+    min-width: 110px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.clock-card span {
+    display: block;
+    font-size: 3rem;
+    font-weight: 600;
+    color: #ffd700;
+    text-shadow: 0 0 15px rgba(255,215,0,0.3);
+}
+
+.clock-card p {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: #cbd5e1;
+    letter-spacing: 1px;
+}
+
+/* --- Schedule Matrix Display Framework --- */
+.invitation-request-text {
+    font-size: 1.3rem;
+    font-style: italic;
+    color: #bead9d;
+    margin-bottom: 50px;
+    font-family: 'Playfair Display', serif;
+}
+
+.schedule-grid {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.event-card {
+    background: rgba(17, 26, 46, 0.7);
+    backdrop-filter: blur(6px);
+    padding: 45px 30px;
+    border-radius: 8px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    flex: 1;
+    min-width: 320px;
+    position: relative;
+    border: 1px solid rgba(255,215,0,0.15);
+    transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255,215,0,0.5);
+}
+
+.top-gold-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+background: linear-gradient(90deg, #0d1321, #ffd700, #0d1321);}.event-card h3 {font-family: 'Playfair Display', serif;font-size: 1.8rem;color: #ffffff;margin-bottom: 15px;}.event-time {color: #ffd700;font-weight: 600;font-size: 1.05rem;margin-bottom: 20px;}.event-venue {color: #cbd5e1;margin-bottom: 25px;}.google-map-box {border-radius: 6px;overflow: hidden;margin-bottom: 25px;border: 1px solid rgba(255,215,0,0.2);}.map-link-btn {display: inline-block;padding: 12px 32px;background: linear-gradient(135deg, #ffd700 0%, #b39200 100%);color: #0d1321;text-decoration: none;font-weight: 600;font-size: 0.9rem;border-radius: 25px;transition: 0.3s;box-shadow: 0 4px 15px rgba(255,215,0,0.2);}.map-link-btn:hover {transform: scale(1.03);box-shadow: 0 6px 20px rgba(255,215,0,0.4);}/* --- RSVP Form Panel Elements --- */.rsvp-section {background-color: #090d16;}.rsvp-glass-container {background: rgba(17, 26, 46, 0.9);border: 1px solid rgba(255, 215, 0, 0.3);max-width: 600px;margin: 0 auto;padding: 50px 40px;border-radius: 8px;box-shadow: 0 30px 60px rgba(0,0,0,0.5);}.rsvp-glass-container h2 {font-family: 'Playfair Display', serif;color: #ffd700;font-size: 2.2rem;}.rsvp-tagline {font-style: italic;color: #cbd5e1;margin-bottom: 30px;}form {display: flex;flex-direction: column;gap: 15px;}input, select, textarea {width: 100%;padding: 14px;background: rgba(13, 19, 33, 0.8);border: 1px solid rgba(255,215,0,0.2);border-radius: 4px;font-family: inherit;font-size: 0.95rem;color: white;outline: none;}input:focus, select:focus, textarea:focus {border-color: #ffd700;box-shadow: 0 0 10px rgba(255,215,0,0.3);}select option {background-color: #0d1321;color: white;}.rsvp-submit-btn {background: linear-gradient(135deg, #ffd700 0%, #b39200 100%);color: #0d1321;padding: 16px;border: none;border-radius: 4px;font-size: 1rem;cursor: pointer;font-weight: 600;transition: 0.3s;}.rsvp-submit-btn:hover {transform: translateY(-2px);box-shadow: 0 5px 20px rgba(255,215,0,0.4);}/* --- Ambient Particles Layer Framework (Shimmer Stars + Flowers) --- */.animation-canvas {position: fixed;top: 0;left: 0;width: 100%;height: 100%;pointer-events: none;z-index: 5;overflow: hidden;}.shimmer-star {position: absolute;background-color: #ffffff;border-radius: 50%;animation: driftStar linear infinite;box-shadow: 0 0 8px #ffffff;}.rose-petal {position: absolute;background-color: #ffd700; /* Gold Shimmer Petals */border-radius: 120% 0 120% 120%;opacity: 0.5;animation: dropFall linear infinite;}/* --- Flying Golden Butterfly Components --- */.butterfly {position: absolute;width: 25px;height: 20px;perspective: 500px;z-index: 6;opacity: 0;animation: flyPathway linear infinite;}.wing {position: absolute;width: 12px;height: 20px;background: radial-gradient(circle, #fff7d6 0%, #ffd700 70%, #b39200 100%);border: 1px solid #0d1321;box-shadow: 0 2px 8px rgba(255,215,0,0.4);}.wing-left {left: 0;border-radius: 100% 30% 100% 30%;transform-origin: right center;animation: flapLeft 0.14s infinite alternate ease-in-out;}.wing-right {right: 0;border-radius: 30% 100% 30% 100%;transform-origin: left center;animation: flapRight 0.14s infinite alternate ease-in-out;}/* --- System Animation Keyframe Declarations --- */@keyframes flapLeft { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(75deg); } }@keyframes flapRight { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(-75deg); } }@keyframes dropFall {0% { transform: translateY(-10px) rotate(0deg); opacity: 0.6; }100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }}@keyframes driftStar {0% { transform: translateY(105vh) scale(0.5); opacity: 0; }50% { opacity: 1; }100% { transform: translateY(-5vh) scale(1.2); opacity: 0; }}@keyframes flyPathway {0% { transform: translate(-50px, 80vh) scale(0.6); opacity: 0; }15% { opacity: 1; }85% { opacity: 1; }100% { transform: translate(105vw, -50px) scale(1.1); opacity: 0; }}.hidden { display: none; }#formFeedback { margin-top: 15px; font-weight: 600; text-shadow: 0 0 5px rgba(255,255,255,0.2); }/* --- Mobile Adaptive Breakpoint Viewports --- /@media (max-width: 600px) {.main-title { font-size: 2.8rem; }.gate-text-center h1 { font-size: 2.2rem; }.palace-arch { height: 75vh; }.arabic-text { font-size: 1.5rem; }.clock-card { min-width: 75px; padding: 15px; }.clock-card span { font-size: 1.8rem; }.lantern-wrapper { display: none; } / Hide heavy lantern lines on tiny screen profiles */}
